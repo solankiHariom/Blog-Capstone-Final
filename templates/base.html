@@ -1,0 +1,58 @@
+
+
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Header -->
+		<header id="header">
+			<h1><a href="{{ url_for('home') }}">Blog Capstone</a></h1>
+			<nav class="links">
+				<ul>
+					<li><a href="{{ url_for('home') }}   ">Home </a></li>
+					<li><a href="{{ url_for('about') }}  ">About</a></li>
+					<li><a href="{{ url_for('contact') }}">Contact</a></li>
+
+					{% if is_auth %}
+					<li><a href="{{ url_for('logout') }}">Log Out</a></li>
+					{% else %}
+					<li><a href="{{ url_for('login') }}   ">Log In </a></li>
+					<li><a href="{{ url_for('register') }}">Register</a></li>
+					{% endif %}
+
+				</ul>
+			</nav>
+			<nav class="main">
+				<ul>
+					<li class="menu">
+						<a class="fa-bars" href="#menu">Menu</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
+
+		<!-- Menu -->
+		<section id="menu">
+
+			<!-- Links -->
+			<section>
+				<ul class="links">
+					<li><a href="{{ url_for('home') }}   ">Home </a></li>
+					<li><a href="{{ url_for('about') }}  ">About</a></li>
+					<li><a href="{{ url_for('contact') }}">Contact</a></li>
+				</ul>
+			</section>
+
+			<!-- Actions -->
+			<section>
+				<ul class="actions stacked">
+					{% if is_auth %}
+					<li><a href="{{ url_for('logout') }}" class="button large fit" >Log Out</a></li>
+					{% else %}
+					<li><a href="{{ url_for('login') }}   " class="button large fit" >Log In </a></li>
+					<li><a href="{{ url_for('register') }}" class="button large fit" >Register</a></li>
+					{% endif %}
+				</ul>
+			</section>
+
+		</section>

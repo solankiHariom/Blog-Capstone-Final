@@ -1,0 +1,153 @@
+{% include "header.html" %}
+
+<body class='is-preload'></body>
+{% include 'base.html' %}
+
+
+<!-- Main -->
+<div id="main">
+
+	{% for blog in main_blogs.items %}
+	<!-- Post -->
+	<article class="post">
+		<header>
+			<div class="title">
+				<h2><a href="{{ url_for('show_post', post_id=blog.id) }}">{{ blog.title }}</a></h2>
+				<p>{{ blog.subtitle }}</p>
+			</div>
+			<div class="meta">
+				<time class="published" datetime="2015-11-01">{{ blog.date }}</time>
+				<a href="#" class="author"><span class="name">{{ blog.author.name }}</span><img
+						src="../static/images/avatar.jpg" alt="" /></a>
+			</div>
+		</header>
+		<a href="{{ url_for('show_post', post_id=blog.id) }}" class="image featured"><img src="{{ blog.img_url }}"
+				alt="" /></a>
+		<p> {{ blog.about }} </p>
+		<footer>
+			<ul class="actions">
+				<li><a href="{{ url_for('show_post', post_id=blog.id) }}" class="button large">Continue Reading</a></li>
+				{% if current_user.id == 1%}
+				<li><a href="{{url_for('edit_post', post_id=blog.id)}}" class="button large">Edit Post</a></li>
+				<li><a href="{{url_for('delete_post', post_id=blog.id)}}" class="button large"
+						style="color: red;">Delete Post</a></li>
+				{% endif %}
+
+			</ul>
+
+
+			<ul class="stats">
+				
+				{% if is_auth %}
+					{% if current_user.id in blog.likes|map(attribute='author_id')|list %}
+
+						<li class="like">
+							<a class="icon solid fa-heart" id="like-button-{{blog.id}}" onclick="like('{{blog.id}}')">
+								<span id="likes-count-{{blog.id}}"> {{ blog.likes|length}} </span>
+							</a>
+						</li>
+					{% else %}
+						<li class="like">
+							<a class="icon fa-heart" id="like-button-{{blog.id}}" onclick="like('{{blog.id}}')">
+								<span id="likes-count-{{blog.id}}"> {{ blog.likes|length}} </span>
+							</a>
+						</li>
+					{% endif %}
+
+				{% else %}
+					<li><a class="icon solid fa-heart"> {{ blog.likes|length}} </a></li>
+				
+				{% endif %}
+
+				<li><a class="icon solid fa-comment"> {{ blog.comments|length}} </a></li>
+			</ul>
+		</footer>
+	</article>
+	{% endfor %}
+
+
+	<!-- Pagination -->
+	<ul class="actions pagination">
+
+		<li><a href="{{ url_for('home', page=main_blogs.prev_num) }}"
+				class="{% if main_blogs.page == 1 %} disabled {% endif %} button large previous">Previous Page</a></li>
+		<li><a href="{{ url_for('home', page=main_blogs.next_num) }}"
+				class="{% if main_blogs.page == main_blogs.pages %} disabled {% endif %} button large next">Next
+				Page</a></li>
+
+		{% if current_user.id == 1%}
+		<li><a href="{{ url_for('new_post') }}" class="button large">Create New Post</a></li>
+		{% endif %}
+	</ul>
+
+
+</div>
+
+<!-- Sidebar -->
+<section id="sidebar">
+
+	<!-- Intro -->
+	<section id="intro">
+		<a href="#" class="logo"><img src="../static/images/logo.jpg" alt="" /></a>
+		<header>
+			<h2>Blog Capstone</h2>
+			<!-- <p>Another fine responsive site template by <a href="http://html5up.net">HTML5 UP</a></p> -->
+			<p>A collection of random musings by <a href=""> Harry Solanki</a>.</p>
+		</header>
+	</section>
+
+	<!-- Mini Posts -->
+	<section>
+		<div class="mini-posts">
+
+			{% for blog in mini_blogs %}
+			<!-- Mini Post -->
+			<article class="mini-post">
+				<header>
+					<h3><a href="{{ url_for('show_post', post_id=blog.id) }}">{{ blog.title }}</a></h3>
+					<time class="published" datetime="2015-10-20"> {{ blog.date }} </time>
+					<a href="#" class="author"><img src="../static/images/avatar.jpg" alt="" /></a>
+				</header>
+				<a href="{{ url_for('show_post', post_id=blog.id ) }}" class="image"><img src="{{ blog.img_url }}"
+						alt="" /></a>
+			</article>
+
+			{% endfor %}
+
+		</div>
+	</section>
+
+	<!-- Posts List -->
+	<section>
+		<ul class="posts">
+
+			{% for blog in blog_list %}
+			<li>
+				<article>
+					<header>
+						<h3><a href="{{ url_for('show_post', post_id=blog.id ) }}">{{ blog.title }}</a></h3>
+						<time class="published" datetime="2015-10-20">{{ blog.date }}</time>
+					</header>
+					<a href="{{ url_for('show_post', post_id=blog.id ) }}" class="image"><img src="{{ blog.img_url }}"
+							style="height: 64px; object-fit: cover;" alt="" /></a>
+				</article>
+			</li>
+			{% endfor %}
+
+		</ul>
+	</section>
+
+	<!-- About -->
+	<section class="blurb">
+		<h2>About</h2>
+		<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod
+			amet placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at phasellus sed ultricies.
+		</p>
+		<ul class="actions">
+			<li><a href="{{ url_for('about') }}" class="button">Learn More</a></li>
+		</ul>
+	</section>
+
+
+
+	{% include "footer.html" %}

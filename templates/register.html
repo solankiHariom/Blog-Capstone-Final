@@ -1,0 +1,55 @@
+{% include 'header.html' %}
+
+<body class='single is-preload'></body>
+{% include 'base.html' %}
+
+<!--  Contact page body -->
+
+
+<section>
+    <div class="container">
+
+        <div class="modal is-open">
+            <div class="modal-container">
+                <div class="modal-left">
+
+                    <form action="" method="post">
+
+                        <h1 class="login_heading">Sign Up</h1>
+                        <div class="input-block">
+                            <label for="name" class="input-label">Name</label>
+                            <input type="text" name="userName" placeholder="Name" required>
+                        </div>
+                        
+                        <div class="input-block">
+                            <label for="email" class="input-label">Email</label>
+                            <input type="email" name="userEmail" id="email" placeholder="example@example.com" required>
+                        </div>
+                        <div class="input-block">
+                            <label for="password" class="input-label">Password</label>
+                            <input type="password" name="userPassword" id="password" placeholder="Password" minlength="8" required>
+                        </div>
+                        <div class="modal-buttons" style="justify-content: center;">
+                            <button>Sign Up</button>
+                            
+                            
+                        </div>
+                    </form>
+                </div>
+
+
+                <div class="modal-right">
+
+                    <p class='logo_login' > Blog Capstone</p>
+                    <p class="subheading_login">A collection of random musings.</p>
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- partial -->
+
+
+{% include 'footer.html' %}

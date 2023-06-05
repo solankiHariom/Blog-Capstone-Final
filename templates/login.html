@@ -1,0 +1,62 @@
+{% include 'header.html' %}
+
+<body class='single is-preload'></body>
+{% include 'base.html' %}
+
+<!--  Contact page body -->
+
+
+<section>
+    <div class="container">
+
+        <div class="modal is-open">
+            <div class="modal-container">
+                <div class="modal-left">
+
+                    <form action="" method="post">
+
+                        <h1 class="login_heading">Sign In</h1>
+
+                        {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                        {% for message in messages %}
+                        <p style="color: red;">{{ message }}</p>
+                        {% endfor %}
+                        {% endif %}
+                        {% endwith %}
+
+
+                        <div class="input-block">
+                            <label for="email" class="input-label">Email</label>
+                            <input type="email" placeholder="example@example.com" name="userEmail" required>
+                        </div>
+                        <div class="input-block">
+                            <label for="password" class="input-label">Password</label>
+                            <input type="password" name="userPassword" placeholder="Password"
+                                minlength="8" required>
+                        </div>
+                        <div class="modal-buttons">
+                            <button>Sign In</button>
+                            <a href="">Forgot your password?</a>
+                        </div>
+                        <p class="sign-up">Don't have an account? <a href="#">Sign up now</a></p>
+                </div>
+
+                </form>
+
+
+                <div class="modal-right">
+
+                    <p class='logo_login'> Blog Capstone</p>
+                    <p class="subheading_login">A collection of random musings.</p>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- partial -->
+
+
+{% include 'footer.html' %}

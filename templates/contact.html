@@ -1,0 +1,91 @@
+{% include 'header.html' %}
+
+<body class='single is-preload'></body>
+{% include 'base.html' %}
+
+<!--  Contact page body -->
+
+<div class="container-fluid">
+    <div class="row">
+
+        {% if msg_sent: %}
+
+        <h1 style="text-align: center; color: green;padding-bottom: 20px;"> 
+            Successfully sent your message. 
+        </h1>
+        {% endif %}
+
+        <div class="feature-box col-lg-6 " style="padding: 4.5%; ">
+
+            <header>
+                <h2 style="margin-bottom: 20px;">Contact Us</h2>
+                <p>For any questions or comments, please contact me and I will get right on it!</p>
+            </header>
+
+            <div style="margin-top: 40px;">
+                <h4> Phone :</h4>
+                <p>+918989898989</p>
+                <h4> Email :</h4>
+                <p>automateharry@gmail.com</p>
+                <h4> Website :</h4>
+                <p>jdlkj.ck.com</p>
+            </div>
+
+
+
+        </div>
+
+        
+            <div class="feature-box col-lg-6"
+                style="padding: 4.5%; box-shadow: 0px 0px 48px -10px rgba(0, 0, 0, 0.25); border-radius: 20px;">
+
+                <form action="" method="post">
+                <h3 style="text-align: center;">Contact Form </h3><br>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text icon solid fa-user" id="basic-addon1"></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Name" name="UserName" aria-describedby="basic-addon1" required>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text icon solid fa-envelope" id="basic-addon2"></span>
+                    </div>
+                    <input type="email" class="form-control" placeholder="example@example.com" name="Email" required>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text icon solid fa-phone" id="basic-addon2"></span>
+                    </div>
+                    <input type="tel" class="form-control" placeholder="Phone Number" name="Phone" minlength="10" maxlength="13">
+                </div>
+
+                <div class="input-group">
+                    <!-- <input type="text" class="form-control" size="30px" aria-label="Message" placeholder="Your Message Here." > -->
+                    <textarea class="form-control" aria-label="Message" placeholder="Your Message Here." name="Message" line="4"
+                        rows="5" required></textarea>
+                </div><br>
+
+                <input type="submit" class="primary" value="submit" />
+                <input type="reset" value="Reset Form" />
+
+
+
+            </form>
+            
+        </div>
+
+
+
+
+</div>
+</div>
+<br><br><br>
+
+
+
+
+{% include 'footer.html' %}

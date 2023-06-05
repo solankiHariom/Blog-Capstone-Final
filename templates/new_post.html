@@ -1,0 +1,40 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% include 'header.html' %}
+
+
+<style>
+    .create_post_form {
+        line-height: 75px;
+        /* height: 80px; */
+    }
+</style>
+
+
+<body class='single is-preload'></body>
+{% include 'base.html' %}
+
+
+<div class="create_post_form">
+
+
+    <article class="post" style="padding: 70px;">
+
+        {% if is_edit: %}
+        <h1 style="text-align: center; color: maroon; ">Edit Current Post</h1>
+        {% else: %}
+        <h1 style="text-align: center; color: maroon; ">Create New Post</h1>
+        {% endif %}
+
+
+        {{ ckeditor.load() }}
+        {{ ckeditor.config(name='body') }}
+        {{ wtf.quick_form(form) }}
+
+    </article>
+
+</div>
+
+
+
+{% include 'footer.html' %}

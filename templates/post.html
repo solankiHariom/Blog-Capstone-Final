@@ -1,0 +1,219 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% include 'header.html' %}
+
+
+<body class='single is-preload'></body>
+{% include 'base.html' %}
+
+
+<!-- Main -->
+<div id="main">
+
+	<!-- Post -->
+	<article class="post">
+		<header>
+			<div class="title">
+				<h2><a href="#"> {{ blog.title }} </a></h2>
+				<p>{{ blog.subtitle }}</p>
+			</div>
+			<div class="meta">
+				<time class="published" datetime="2015-11-01">{{ blog.date }}</time>
+				<a href="#" class="author"><span class="name">{{ blog.author.name }}</span><img
+						src="../static/images/logo.jpg" alt="" /></a>
+			</div>
+		</header>
+		<span class="image featured"><img src="{{ blog.img_url }}" alt="" /></span>
+
+		{{ blog.body|safe }}
+
+		<footer>
+			<ul class="stats">
+				{% if is_auth %}
+
+				{% if current_user.id in blog.likes|map(attribute='author_id')|list %}
+				<li class="like">
+					<a class="icon solid fa-heart" id="like-button-{{blog.id}}" onclick="like('{{blog.id}}')">
+						<span id="likes-count-{{blog.id}}"> {{ blog.likes|length}} </span>
+					</a>
+				</li>
+				{% else %}
+				<li class="like">
+					<a class="icon fa-heart" id="like-button-{{blog.id}}" onclick="like('{{blog.id}}')">
+						<span id="likes-count-{{blog.id}}"> {{ blog.likes|length}} </span>
+					</a>
+				</li>
+				{% endif %}
+
+				{% else %}
+				<li><a class="icon solid fa-heart"> {{ blog.likes|length}} </a></li>
+				{% endif %}
+				<li><a class="icon solid fa-comment"> {{ blog.comments|length}} </a></li>
+			</ul>
+		</footer>
+
+	</article>
+
+</div>
+
+
+
+<style>
+	.comments_section {
+		padding: 0% 15% 5%;
+	}
+
+	#comment_sec {
+		border-radius: 20px;
+		background: #FFFFFF;
+		box-shadow: 0px 0px 20px -10px rgba(27, 27, 27, 0.25);
+		border-radius: 20px;
+		border: solid 1.5px rgba(160, 160, 160, 0.3);
+	}
+
+	.comment_form {
+		line-height: 4;
+		padding: 0% 6% 0%;
+	}
+
+	#comment_div_title {
+		text-align: center;
+		color: rgb(101, 20, 101);
+	}
+
+
+	@media screen and (max-width: 800px) {
+		.comments_section {
+			padding: 0% 5% 5%;
+		}
+
+		#comment_sec {
+			padding: 10px 24px 24px;
+		}
+
+		.comments_list {
+			padding: 0% 3% 0%;
+		}
+	}
+
+	@media screen and (max-width: 500px) {
+		.comments_section {
+			padding: 0% 0% 5%;
+		}
+
+		#comment_sec {
+			padding: 10px;
+
+		}
+
+		.comments_list {
+			padding: 0% 2% 0%;
+		}
+	}
+
+	@media screen and (min-width: 800px) {
+		#comment_sec {
+			padding: 2em 4em 4em;
+
+		}
+
+		#comment_div_title {
+			font-size: 1.2rem;
+			text-align: left;
+		}
+
+		.comments_list {
+			padding: 0% 5% 0%;
+		}
+	}
+
+
+
+	.commentList {
+		padding: 2% 10% 6% 5%;
+		list-style: none;
+		border-radius: 20px;
+		background-color: #eceff3;
+		max-height: 300px;
+		overflow: auto;
+	}
+
+	.commentList li {
+		margin: 0;
+		margin-top: 20px;
+	}
+
+	.commentList li>div {
+		display: table-cell;
+	}
+
+	.commenterImage {
+		width: 40px;
+		margin-right: 20px;
+		height: 100%;
+		float: left;
+	}
+
+	.commenterImage img {
+		width: 100%;
+		border-radius: 50%;
+	}
+
+	.commentText p {
+		margin: 0;
+	}
+
+	.sub-text {
+		color: #aaa;
+		font-family: verdana;
+		font-size: 15px;
+	}
+</style>
+
+
+<div class="comments_section">
+	<div class="feature-box col-lg-12" id="comment_sec">
+
+		<header>
+			<h2 id="comment_div_title">Comments </h2>
+		</header>
+
+		<div class="comments_list">
+			<ul class="commentList">
+				{% for comment in blog.comments%}
+
+				<li>
+					<div class="commenterImage">
+
+						<img src="{{ comment.comment_author.email|gravatar }}" />
+					</div>
+					<div class="commentText">
+						<span class="date sub-text"> {{comment.comment_author.name}} </span>
+						<p> {{ comment.text|safe }}</p>
+					</div>
+
+					{% if current_user.id == 1 %}
+					<div>
+						&nbsp;
+						<a href="{{ url_for('delete_comment', comment_id=comment.id, post_id=blog.id) }}"
+						class="icon solid fa-trash" style="color: rgb(250, 86, 86);"></a>
+					</div>
+					{% endif %}
+
+				</li>
+
+
+				{% endfor %}
+			</ul>
+		</div>
+
+		<div class="comment_form">
+			{{ wtf.quick_form(form) }}
+		</div>
+
+
+
+	</div>
+</div>
+
+{% include "footer.html" %}
